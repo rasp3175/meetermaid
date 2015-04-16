@@ -1,44 +1,46 @@
 <head>
-  <title>MeeterMaid</title>
+    <title>MeeterMaid</title>
 </head>
 <body>
 <div class="container">
     <header>
         <img src="/mm_logo.png"/>
-      <h1>MeeterMaid</h1>
+
+        <h1>MeeterMaid</h1>
+
         <p>A simple app to help you pause and reflect on your day.</p>
         {{> loginButtons}}
         {{#if currentUser}}
-          <form class="new-meeting">
-              <input type="text" name="subject" placeholder="Type to add a new meeting" />
-        </form>
+            <form class="new-meeting">
+                <input type="text" name="subject" placeholder="Type to add a new meeting"/>
+            </form>
         {{/if}}
     </header>
     <ul>
-      {{#each meetings}}
-        {{> meeting}}
-      {{/each}}
+        {{#each meetings}}
+            {{> meeting}}
+        {{/each}}
     </ul>
-  </div>
+</div>
 </body>
 
 <template name="meeting">
-<li class="{{#if checked}}checked{{/if}} {{#if private}}private{{/if}}">
-    <button class="delete">&times;</button>
+    <li class="{{#if checked}}checked{{/if}} {{#if private}}private{{/if}}">
+        <button class="delete">&times;</button>
 
-    <input type="checkbox" checked="{{checked}}" class="toggle-checked" />
+        <input type="checkbox" checked="{{checked}}" class="toggle-checked"/>
         {{#if isOwner}}
-  <button class="toggle-private">
-    {{#if private}}
-      Private
-    {{else}}
-      Public
-    {{/if}}
-  </button>
-{{/if}}
+            <button class="toggle-private">
+                {{#if private}}
+                    Private
+                {{else}}
+                    Public
+                {{/if}}
+            </button>
+        {{/if}}
 
-    <span class="text"><strong>{{username}}</strong></span>
-    <span class="text">{{subject}}</span>
-    <span class="text">{{start}}</span>
-  </li>
+        <span class="text"><strong>{{username}}</strong></span>
+        <span class="text">{{subject}}</span>
+        <span class="text">{{start}}</span>
+    </li>
 </template>
