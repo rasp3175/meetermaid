@@ -6,29 +6,47 @@ if (Meteor.isClient) {
     Accounts.ui.config({
         passwordSignupFields: "USERNAME_ONLY"
     });
+//----------------form-----------------------------
+    Template.form.helpers({
+        private: true
+    });
 
-    Template.body.helpers({
+    Template.form.events({
+        "submit form": function (event) {
+            Meteor.call("addMeeting", {
+                datetime: $('#datetimepicker').data("DateTimePicker").date().toDate(),
+                description: event.target['meeting-description'].value,
+                private: parseInt(event.target['meeting-private'].value),
+                priority: $('#meeting-priority').rateit('value'),
+                title: event.target['meeting-title'].value
+            });
+
+            event.target['meeting-description'].value = "";
+            event.target['meeting-datetime'].value = "";
+            event.target['meeting-title'].value = "";
+            event.target['meeting-private'].value = "1";
+            $('#meeting-priority').rateit('reset');
+
+            return false;
+        },
+        'click #meeting-private-title': function() {
+            if($('#meeting-private').val() === '1') {
+                $('#meeting-private').val(0);
+                $('#meeting-private-title').removeClass('btn-primary').addClass('btn-default').html('Public');
+            } else {
+                $('#meeting-private').val(1);
+                $('#meeting-private-title').removeClass('btn-default').addClass('btn-primary').html('Private');
+            }
+        }
+    });
+//----------------list-------------------------
+    Template.list.helpers({
         meetings: function () {
             return Meetings.find({}, {sort: {start: -1}});
         }
     });
-
-    Template.meeting.helpers({
-        isOwner: function () {
-            return this.owner === Meteor.userId();
-        }
-    });
-
-    Template.body.events({
-        "submit .new-meeting": function (event) {
-            var subject = event.target.subject.value;
-            Meteor.call("addMeeting", subject);
-            event.target.subject.value = "";
-            return false;
-        }
-    });
-
-    Template.meeting.events({
+//-----------------list item-------------------------
+    Template.listItem.events({
         "click .toggle-checked": function () {
             Meteor.call("setChecked", this._id, !this.checked);
         },
@@ -39,8 +57,14 @@ if (Meteor.isClient) {
             Meteor.call("setPrivate", this._id, !this.private);
         }
     });
-}
 
+    Template.listItem.helpers({
+        isOwner: function () {
+            return this.owner === Meteor.userId();
+        }
+    });
+}
+//+++++++++++++++++++++++++Back End++++++++++++++++++++++++++++++++
 if (Meteor.isServer) {
     Meteor.publish("meetings", function () {
         return Meetings.find({
@@ -53,18 +77,14 @@ if (Meteor.isServer) {
 }
 
 Meteor.methods({
-    addMeeting: function (subject) {
+    addMeeting: function (meeting) {
         if (!Meteor.userId()) {
             throw new Meteor.Error("not-authorized");
         }
 
-        Meetings.insert({
-            subject: subject,
-            start: new Date(),
-            owner: Meteor.userId(),
-            username: Meteor.user().username,
-            private: true
-        });
+        meeting.owner = Meteor.userId();
+        meeting.username = Meteor.user().username;
+        Meetings.insert(meeting);
     },
     deleteMeeting: function (meetingId) {
         var meeting = Meetings.findOne(meetingId);
