@@ -29,14 +29,22 @@ if (Meteor.isClient) {
 
             return false;
         },
-        'click #meeting-private-title': function() {
-            if($('#meeting-private').val() === '1') {
-                $('#meeting-private').val(0);
-                $('#meeting-private-title').removeClass('btn-primary').addClass('btn-default').html('Public');
-            } else {
-                $('#meeting-private').val(1);
-                $('#meeting-private-title').removeClass('btn-default').addClass('btn-primary').html('Private');
-            }
+        'click .meeting-private-title': function(event) {
+            var currentValue = $('#meeting-private').val();
+            var targetId = event.currentTarget.id;
+
+            var selectPrivacy = function(value, enableElement, disableElement) {
+                $('#meeting-private').val(value);
+                disableElement.removeClass('btn-primary').addClass('btn-default');
+                enableElement.removeClass('btn-default').addClass('btn-primary');
+            };
+
+            if((currentValue === '1') && (targetId !== 'meeting-private-enable'))
+                selectPrivacy('0', $('#meeting-private-disable'), $('#meeting-private-enable'));
+            if((currentValue === '0') && (targetId !== 'meeting-private-disable'))
+                selectPrivacy('1', $('#meeting-private-enable'), $('#meeting-private-disable'));
+
+            return false;
         }
     });
 //----------------list-------------------------

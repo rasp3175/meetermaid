@@ -42,10 +42,22 @@
                 </div>
                 <div class="meeting-privacy-block">
                 {{#if private}}
-                    <button class="btn btn-primary btn-sm" id="meeting-private-title">Private</button>
+                    <div class="btn-group" role="group">
+                        <button class="btn btn-primary btn-sm meeting-private-title" id="meeting-private-enable">
+                            Private
+                        </button>
+                        <button class="btn btn-default btn-sm meeting-private-title" id="meeting-private-disable">
+                            Public
+                        </button>
+                    </div>
                     <input type="hidden" id="meeting-private" value="1" />
                 {{else}}
-                    <button class="btn btn-default btn-sm" id="meeting-private-title">Public</button>
+                    <button class="btn btn-default btn-sm meeting-private-title" id="meeting-private-enable">
+                        Private
+                    </button>
+                    <button class="btn btn-primary btn-sm meeting-private-title" id="meeting-private-disable">
+                        Public
+                    </button>
                     <input type="hidden" id="meeting-private" value="0" />
                 {{/if}}
                 </div>
