@@ -8,8 +8,12 @@ Router.route('/', function () {
     this.render('main');
 });
 
-Router.route('/add', function () {
-    this.render('form');
+Router.route('/list', function () {
+    this.render('list');
+});
+
+Router.route('/today', function () {
+    this.render('list');
 });
 //++++++++++++++++++++front end++++++++++++++++++++++
 if (Meteor.isClient) {
@@ -17,6 +21,21 @@ if (Meteor.isClient) {
 
     Accounts.ui.config({
         passwordSignupFields: "USERNAME_ONLY"
+    });
+//---------------navigation-----------------------
+    Template.navigation.isCurrentUri = function(uri) {
+        return Iron.Location.get().path === uri;
+    };
+    Template.navigation.events({
+        "click .nav li": function (event) {
+            $('.nav li').removeClass('active');
+            $(event.currentTarget).addClass('active');
+        },
+        "click #logout-link": function () {
+            Meteor.logout(function() {
+                Router.go('/');
+            });
+        }
     });
 //----------------form-----------------------------
     Template.form.helpers({
