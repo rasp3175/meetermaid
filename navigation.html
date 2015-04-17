@@ -1,0 +1,30 @@
+<template name="navigation">
+    <!-- Fixed navbar -->
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">MeeterMaid</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse" aria-expanded="false" style="height: 1px;">
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="#">Home</a>
+                </li>
+                {{#if currentUser}}
+                <li><a href="#">Timeline</a>
+                </li>
+                <li><a href="#">Add</a>
+                </li>
+                {{/if}}
+                <li>
+                    <p class="navbar-text navbar-right">{{> loginButtons align="right"}}</p>
+                </li>
+            </ul>
+            <!--/.nav-collapse -->
+        </div>
+    </nav>
+</template>
