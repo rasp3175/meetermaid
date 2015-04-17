@@ -52,12 +52,7 @@ if (Meteor.isClient) {
                 title: event.target['meeting-title'].value
             });
 
-            event.target['meeting-description'].value = "";
-            event.target['meeting-datetime'].value = "";
-            event.target['meeting-title'].value = "";
-            event.target['meeting-private'].value = "1";
-            $('#meeting-priority').rateit('reset');
-
+            Router.go('/list');
             return false;
         },
         'click .meeting-private-title': function(event) {
