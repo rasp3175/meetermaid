@@ -110,35 +110,37 @@
 
 <template name="list">
     <p>Here is your meeting notes timeline</p>
-    <ul>
+    <ul class="meeting-list">
         {{#each meetings}}
-            {{> listItem}}
+            <li>{{> listItem}}</li>
         {{/each}}
     </ul>
 </template>
 
 <template name="listItem">
-    <li class="{{#if checked}}checked{{/if}} {{#if private}}private{{/if}}">
-        <button class="delete">&times;</button>
+    <div class="meeting-main-info">
+        <div class="meeting-info-title"><a href="/edit-meeting/{{_id}}">{{title}}</a></div>
+        <div class="rateit" data-rateit-value="{{priority}}" data-rateit-ispreset="true" data-rateit-readonly="true">
+        </div>
+        <div class="meeting-info-datetime small text-muted">{{formatDate datetime 'dddd, LL'}}</div>
+    </div>
 
-        <input type="checkbox" checked="{{checked}}" class="toggle-checked"/>
-        {{#if isOwner}}
-            <button class="toggle-private">
-                {{> privacy}}
-            </button>
+    <div class="meeting-info-description">
+        {{#if description}}
+            {{description}}
+        {{else}}
+            <div class="empty-meeting-description">
+                No notes entered. Click the title to update!
+            </div>
         {{/if}}
+    </div>
+    <div style="clear:both"></div>
 
-        <span class="text"><strong>{{username}}</strong></span>
-        <span class="text">{{title}}</span>
-        <span class="text">{{datetime}}</span>
-        <div class="rateit" data-rateit-value="{{priority}}" data-rateit-ispreset="true" data-rateit-readonly="true"></div>
-        {{description}}
-        <script type="text/javascript">
-            $(function () {
-                $('.rateit').rateit();
-            });
-        </script>
-    </li>
+    <script type="text/javascript">
+        $(function () {
+            $('.rateit').rateit();
+        });
+    </script>
 </template>
 
 <template name="privacy">

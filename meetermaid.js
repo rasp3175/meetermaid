@@ -22,6 +22,10 @@ if (Meteor.isClient) {
     Accounts.ui.config({
         passwordSignupFields: "USERNAME_ONLY"
     });
+
+    UI.registerHelper("formatDate", function(dateTime, dateFormat) {
+        return moment(dateTime).format(dateFormat);
+    });
 //---------------navigation-----------------------
     Template.navigation.isCurrentUri = function(uri) {
         return Iron.Location.get().path === uri;
@@ -79,24 +83,6 @@ if (Meteor.isClient) {
             return Meetings.find({}, {sort: {start: -1}});
         }
     });
-//-----------------list item-------------------------
-    Template.listItem.events({
-        "click .toggle-checked": function () {
-            Meteor.call("setChecked", this._id, !this.checked);
-        },
-        "click .delete": function () {
-            Meteor.call("deleteMeeting", this._id);
-        },
-        "click .toggle-private": function () {
-            Meteor.call("setPrivate", this._id, !this.private);
-        }
-    });
-
-    Template.listItem.helpers({
-        isOwner: function () {
-            return this.owner === Meteor.userId();
-        }
-    });
 }
 //+++++++++++++++++++++++++Back End++++++++++++++++++++++++++++++++
 if (Meteor.isServer) {
@@ -119,18 +105,6 @@ Meteor.methods({
         meeting.owner = Meteor.userId();
         meeting.username = Meteor.user().username;
         Meetings.insert(meeting);
-    },
-    deleteMeeting: function (meetingId) {
-        var meeting = Meetings.findOne(meetingId);
-        if (meeting.private && meeting.owner !== Meteor.userId()) {
-            throw new Meteor.Error("not-authorized");
-        }
-    },
-    setChecked: function (meetingId) {
-        var meeting = Meetings.findOne(meetingId);
-        if (meeting.private && meeting.owner !== Meteor.userId()) {
-            throw new Meteor.Error("not-authorized");
-        }
     },
     setPrivate: function (meetingId, setToPrivate) {
         var meeting = Meetings.findOne(meetingId);
