@@ -11,3 +11,4 @@ momentjs:moment
 twbs:bootstrap
 tsega:bootstrap3-datetimepicker
 dandv:jquery-rateit
+iron:router

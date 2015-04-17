@@ -1,5 +1,17 @@
 Meetings = new Mongo.Collection("meetings");
+//++++++++++++++++++++routing++++++++++++++++++++++
+Router.configure({
+    layoutTemplate: 'layout'
+});
 
+Router.route('/', function () {
+    this.render('main');
+});
+
+Router.route('/add', function () {
+    this.render('form');
+});
+//++++++++++++++++++++front end++++++++++++++++++++++
 if (Meteor.isClient) {
     Meteor.subscribe("meetings");
 
