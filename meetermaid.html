@@ -1,44 +1,109 @@
 <head>
-  <title>MeeterMaid</title>
+    <title>MeeterMaid</title>
 </head>
 <body>
 <div class="container">
     <header>
         <img src="/mm_logo.png"/>
-      <h1>MeeterMaid</h1>
-        <p>A simple app to help you pause and reflect on your day.</p>
-        {{> loginButtons}}
+
+        <h1>MeeterMaid</h1>
         {{#if currentUser}}
-          <form class="new-meeting">
-              <input type="text" name="subject" placeholder="Type to add a new meeting" />
-        </form>
+            <p>Time to pause and reflect on your meeting today!</p>
+        {{else}}
+            <p>A simple app to help you pause and reflect on your day.</p>
         {{/if}}
+        {{> loginButtons}}
     </header>
-    <ul>
-      {{#each meetings}}
-        {{> meeting}}
-      {{/each}}
-    </ul>
-  </div>
+    {{> form}}
+    {{> list}}
+</div>
 </body>
 
-<template name="meeting">
-<li class="{{#if checked}}checked{{/if}} {{#if private}}private{{/if}}">
-    <button class="delete">&times;</button>
-
-    <input type="checkbox" checked="{{checked}}" class="toggle-checked" />
-        {{#if isOwner}}
-  <button class="toggle-private">
-    {{#if private}}
-      Private
-    {{else}}
-      Public
+<template name="form">
+    {{#if currentUser}}
+        <form>
+            <div>
+                <div class="meeting-title-block">
+                    <input type="text" maxlength="60" class="form-control" name="meeting-title" placeholder="Meeting Title" />
+                </div>
+                <div class="meeting-datetime-block">
+                    <div class='input-group date' id='datetimepicker'>
+                        <input type='text' class="form-control" id="meeting-datetime" placeholder="Time" />
+                        <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-calendar"></span>
+                        </span>
+                    </div>
+                </div>
+                <div class="meeting-description-title">
+                    <label for="meeting-description" class="control-label">Meeting Notes</label>
+                </div>
+                <div class="meeting-description-block">
+                    <textarea name="meeting-description" id="meeting-description" maxlength="255" placeholder="Type here" class="form-control"></textarea>
+                </div>
+                <div class="meeting-privacy-block">
+                {{#if private}}
+                    <button class="btn btn-primary btn-sm" id="meeting-private-title">Private</button>
+                    <input type="hidden" id="meeting-private" value="1" />
+                {{else}}
+                    <button class="btn btn-default btn-sm" id="meeting-private-title">Public</button>
+                    <input type="hidden" id="meeting-private" value="0" />
+                {{/if}}
+                </div>
+                <div class="meeting-priority-block">
+                    <div id="meeting-priority" class="rateit"></div>
+                </div>
+                <div class="meeting-submit-block">
+                    <input type="submit" value="Save" class="btn btn-primary btn-sm" />
+                </div>
+            </div>
+        </form>
+        <script type="text/javascript">
+            $(function () {
+                $('#datetimepicker').datetimepicker();
+                $('.rateit').rateit();
+            });
+        </script>
     {{/if}}
-  </button>
-{{/if}}
+</template>
 
-    <span class="text"><strong>{{username}}</strong></span>
-    <span class="text">{{subject}}</span>
-    <span class="text">{{start}}</span>
-  </li>
+<template name="list">
+    <ul>
+        {{#each meetings}}
+            {{> listItem}}
+        {{/each}}
+    </ul>
+</template>
+
+<template name="listItem">
+    <li class="{{#if checked}}checked{{/if}} {{#if private}}private{{/if}}">
+        <button class="delete">&times;</button>
+
+        <input type="checkbox" checked="{{checked}}" class="toggle-checked"/>
+        {{#if isOwner}}
+            <button class="toggle-private">
+                {{> privacy}}
+            </button>
+        {{/if}}
+
+        <span class="text"><strong>{{username}}</strong></span>
+        <span class="text">{{title}}</span>
+        <span class="text">{{datetime}}</span>
+        <div class="rateit" data-rateit-value="{{priority}}" data-rateit-ispreset="true" data-rateit-readonly="true"></div>
+        {{description}}
+        <script type="text/javascript">
+            $(function () {
+                $('.rateit').rateit();
+            });
+        </script>
+    </li>
+</template>
+
+<template name="privacy">
+    <button class="toggle-private">
+        {{#if private}}
+            Private
+        {{else}}
+            Public
+        {{/if}}
+    </button>
 </template>
