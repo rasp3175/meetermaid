@@ -1,25 +1,26 @@
-.delete {
-    float: right;
-    font-weight: bold;
-    background: none;
-    font-size: 1em;
-    border: none;
-    position: relative;
+/* CSS declarations go here */
+body {
+    font-family: Helvetica, Arial, sans-serif;
+    padding: 0;
+    margin: 0;
+    font-size: 14px;
 }
 
-div.checked {
-    color: #888;
+.logo a:active, .logo a:hover, .logo a:link {
+    text-decoration: none;
 }
 
-div.checked .text {
-    text-decoration: line-through;
+.logo {
+    float: left;
+    width: auto;
 }
 
-div.private {
-    background: #eee;
-    border-color: #ddd;
+.navigation {
+    float: left;
+    margin: 15px 8px 0 8px;
 }
 
-.toggle-private {
-    margin-left: 5px;
+.welcome-block {
+    text-align: center;
+    margin-top: calc(50vh - 144px);
 }
