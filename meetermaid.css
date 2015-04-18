@@ -24,3 +24,35 @@ body {
     text-align: center;
     margin-top: calc(50vh - 144px);
 }
+
+.meeting-title-block, .meeting-datetime-block {
+    float: left;
+    margin-bottom: 5px;
+}
+
+.meeting-title-block {
+    width: 65%;
+    padding-right: 5px;
+}
+
+.meeting-datetime-block {
+    width: 35%;
+}
+
+.meeting-privacy-block, .meeting-priority-block, .meeting-submit-block {
+    float: left;
+    padding-right: 5px;
+    margin-top: 5px;
+}
+
+.meeting-priority-block {
+    padding-top: 7px;
+}
+
+@media screen and (max-width:480px) {
+
+    .meeting-privacy-block, .meeting-priority-block, .meeting-submit-block {
+        float: none;
+    }
+
+}
