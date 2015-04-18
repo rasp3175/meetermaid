@@ -49,6 +49,35 @@ body {
     padding-top: 7px;
 }
 
+.meeting-main-info, .meeting-info-description {
+    float: left;
+}
+
+.meeting-main-info {
+    width: 35%;
+    padding-right: 10px;
+}
+
+.meeting-info-description {
+    width: 65%;
+}
+
+.meeting-list {
+    margin: 0;
+    padding: 0;
+}
+
+.meeting-list LI {
+    border-top: 1px solid #777;
+    list-style-type: none;
+    margin: 0;
+    padding: 6px 0 10px;
+}
+
+.empty-meeting-description {
+    font-style: italic;
+}
+
 @media screen and (max-width:480px) {
 
     .meeting-privacy-block, .meeting-priority-block, .meeting-submit-block {
