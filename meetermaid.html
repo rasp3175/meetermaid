@@ -1,8 +1,18 @@
-<head>
-    <title>MeeterMaid</title>
-</head>
-<body>
-<div class="container">
+<template name="layout">
+    <head>
+        <title>MeeterMaid</title>
+    </head>
+    <body>
+    <div class="container">
+        <header>
+            {{> navigation }}
+        </header>
+        {{> yield}}
+    </div>
+    </body>
+</template>
+
+<template name="navigation">
     <header>
         <img src="/mm_logo.png"/>
 
@@ -14,10 +24,13 @@
         {{/if}}
         {{> loginButtons}}
     </header>
-    {{> form}}
-    {{> list}}
-</div>
-</body>
+</template>
+
+<template name="main">
+    {{#if currentUser}}
+        {{> list}}
+    {{/if}}
+</template>
 
 <template name="form">
     {{#if currentUser}}
