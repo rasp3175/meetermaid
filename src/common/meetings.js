@@ -4,6 +4,14 @@ Meteor.methods({
     saveMeeting: function(meeting) {
         Meteor.call(meeting._id ? 'updateMeeting' : 'addMeeting', meeting);
     },
+    deleteMeeting: function (meetingId) {
+        var meeting = Meetings.findOne({_id: meetingId});
+        if(meeting.owner !== Meteor.userId()) {
+            throw new Meteor.Error("not-authorized");
+        }
+
+        Meetings.remove(meeting);
+    },
     addMeeting: function (meeting) {
         if (!Meteor.userId()) {
             throw new Meteor.Error("not-authorized");

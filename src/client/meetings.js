@@ -15,6 +15,10 @@ if (Meteor.isClient) {
             Router.go('/list');
             return false;
         },
+        'click #delete-meeting': function() {
+            Meteor.call("deleteMeeting", $('#meeting-id').val());
+            Router.go('/list');
+        },
         'click .meeting-private-title': function(event) {
             var currentValue = $('#meeting-private').val();
             var targetId = event.currentTarget.id;
