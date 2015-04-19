@@ -1,0 +1,25 @@
+<template name="listItem">
+    <div class="meeting-main-info">
+        <div class="meeting-info-title"><a href="/edit-meeting/{{_id}}">{{title}}</a></div>
+        <div class="rateit" data-rateit-value="{{priority}}" data-rateit-ispreset="true" data-rateit-readonly="true">
+        </div>
+        <div class="meeting-info-datetime small text-muted">{{formatDate datetime 'dddd, LL'}}</div>
+    </div>
+
+    <div class="meeting-info-description">
+      {{#if description}}
+        {{description}}
+      {{else}}
+          <div class="empty-meeting-description">
+              No notes entered. Click the title to update!
+          </div>
+      {{/if}}
+    </div>
+    <div style="clear:both"></div>
+
+    <script type="text/javascript">
+        $(function () {
+            $('.rateit').rateit();
+        });
+    </script>
+</template>

@@ -1,0 +1,16 @@
+<template name="navigation">
+    <h2 class="logo"><a href="/">MeeterMaid</a></h2>
+    <div class="navigation">
+        <ul class="nav nav-pills">
+            <li role="presentation" class="{{isActivePath regex='/today'}}">
+                <a href="/today">Today</a>
+            </li>
+            <li role="presentation" class="{{isActivePath regex='/list'}}">
+                <a href="/list">Timeline</a>
+            </li>
+            <li role="presentation" id="logout-link"><a href="#">Logout</a></li>
+        </ul>
+    </div>
+    <div style="clear:both"></div>
+  {{currentPage}}
+</template>
