@@ -33,7 +33,7 @@ Router.map(function () {
         var publicMeetingsCriteria = $.extend(true, {}, criteria);
         publicMeetingsCriteria.private = false;
 
-        return Meetings.find({$or: [currentUserMeetingsCriteria, publicMeetingsCriteria]}, {sort: {start: -1}}).fetch();
+        return Meetings.find({$or: [currentUserMeetingsCriteria, publicMeetingsCriteria]}, {sort: {datetime: 1}}).fetch();
     };
 
     this.route('list', {
