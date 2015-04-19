@@ -50,15 +50,12 @@ Router.map(function () {
         path: '/today',
         template: 'list',
         data: function() {
-            var todayBegin = new Date();
-            todayBegin.setHours(0, 0, 0, 0);
-
             var todayEnd = new Date();
             todayEnd.setHours(23, 59, 59, 999);
 
             return {
                 meetings: getMeetings({datetime: {
-                    $gte: todayBegin,
+                    $gte: new Date(),
                     $lte: todayEnd
                 }})
             };
