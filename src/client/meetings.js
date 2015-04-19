@@ -1,31 +1,5 @@
-Meetings = new Mongo.Collection("meetings");
-//++++++++++++++++++++routing++++++++++++++++++++++
-Router.configure({
-    layoutTemplate: 'layout'
-});
-
-Router.route('/', function () {
-    this.render('main');
-});
-
-Router.route('/list', function () {
-    this.render('list');
-});
-
-Router.route('/today', function () {
-    this.render('list');
-});
-//++++++++++++++++++++front end++++++++++++++++++++++
 if (Meteor.isClient) {
     Meteor.subscribe("meetings");
-
-    Accounts.ui.config({
-        passwordSignupFields: "USERNAME_ONLY"
-    });
-
-    UI.registerHelper("formatDate", function(dateTime, dateFormat) {
-        return moment(dateTime).format(dateFormat);
-    });
 //---------------navigation-----------------------
     Template.navigation.isCurrentUri = function(uri) {
         return Iron.Location.get().path === uri;
@@ -84,35 +58,3 @@ if (Meteor.isClient) {
         }
     });
 }
-//+++++++++++++++++++++++++Back End++++++++++++++++++++++++++++++++
-if (Meteor.isServer) {
-    Meteor.publish("meetings", function () {
-        return Meetings.find({
-            $or: [
-                {private: {$ne: true}},
-                {owner: this.userId}
-            ]
-        });
-    });
-}
-
-Meteor.methods({
-    addMeeting: function (meeting) {
-        if (!Meteor.userId()) {
-            throw new Meteor.Error("not-authorized");
-        }
-
-        meeting.owner = Meteor.userId();
-        meeting.username = Meteor.user().username;
-        Meetings.insert(meeting);
-    },
-    setPrivate: function (meetingId, setToPrivate) {
-        var meeting = Meetings.findOne(meetingId);
-
-        if (meeting.owner !== Meteor.userId()) {
-            throw new Meteor.Error("not-authorized");
-        }
-
-        Meetings.update(meetingId, {$set: {private: setToPrivate}});
-    }
-});
