@@ -1,11 +1,45 @@
-Router.route('/', function () {
-    this.render('main');
-});
+Router.map(function () {
+    this.route('main', {
+        path: '/',
+        template: 'main'
+    });
 
-Router.route('/list', function () {
-    this.render('list');
-});
+    var getMeetings = function (criteria) {
+        var currentUserMeetingsCriteria = $.extend(true, {}, criteria);
+        currentUserMeetingsCriteria.owner = Meteor.userId();
 
-Router.route('/today', function () {
-    this.render('list');
+        var publicMeetingsCriteria = $.extend(true, {}, criteria);
+        publicMeetingsCriteria.private = false;
+
+        return Meetings.find({$or: [currentUserMeetingsCriteria, publicMeetingsCriteria]}, {sort: {start: -1}}).fetch();
+    };
+
+    this.route('list', {
+        path: '/list',
+        template: 'list',
+        data: function() {
+            return {
+                meetings: getMeetings({datetime: {$gte: new Date()}})
+            };
+        }
+    });
+
+    this.route('today', {
+        path: '/today',
+        template: 'list',
+        data: function() {
+            var todayBegin = new Date();
+            todayBegin.setHours(0, 0, 0, 0);
+
+            var todayEnd = new Date();
+            todayEnd.setHours(23, 59, 59, 999);
+
+            return {
+                meetings: getMeetings({datetime: {
+                    $gte: todayBegin,
+                    $lte: todayEnd
+                }})
+            };
+        }
+    });
 });

@@ -51,10 +51,4 @@ if (Meteor.isClient) {
             return false;
         }
     });
-//----------------list-------------------------
-    Template.list.helpers({
-        meetings: function () {
-            return Meetings.find({}, {sort: {start: -1}});
-        }
-    });
 }
