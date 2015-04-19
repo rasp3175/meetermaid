@@ -1,7 +1,29 @@
 Router.map(function () {
     this.route('main', {
         path: '/',
-        template: 'main'
+        template: 'main',
+        data: function () {
+            return {
+                meeting: {
+                    _id: null,
+                    datetime: null,
+                    description: '',
+                    private: 1,
+                    priority: 0,
+                    title: ''
+                }
+            };
+        }
+    });
+
+    this.route('edit-meeting', {
+        path: '/edit-meeting/:_id',
+        template: 'form',
+        data: function () {
+            return {
+                meeting: Meetings.findOne({_id: this.params._id})
+            };
+        }
     });
 
     var getMeetings = function (criteria) {

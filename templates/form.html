@@ -2,8 +2,9 @@
     <p>Time to pause and reflect on your meeting today!</p>
     <form>
         <div>
+            <input type="hidden" id="meeting-id" value="{{meeting._id}}" />
             <div class="meeting-title-block">
-                <input type="text" maxlength="60" class="form-control" name="meeting-title" placeholder="Meeting Title" />
+                <input type="text" maxlength="60" class="form-control" name="meeting-title" placeholder="Meeting Title" value="{{meeting.title}}" />
             </div>
             <div class="meeting-datetime-block">
                 <div class='input-group date' id='datetimepicker'>
@@ -18,10 +19,10 @@
                 <label for="meeting-description" class="control-label">Meeting Notes</label>
             </div>
             <div class="meeting-description-block">
-                <textarea name="meeting-description" id="meeting-description" maxlength="255" placeholder="Type here" class="form-control"></textarea>
+                <textarea name="meeting-description" id="meeting-description" maxlength="255" placeholder="Type here" class="form-control">{{meeting.description}}</textarea>
             </div>
             <div class="meeting-privacy-block">
-              {{#if private}}
+              {{#if meeting.private}}
                   <div class="btn-group" role="group">
                       <button class="btn btn-primary btn-sm meeting-private-title" id="meeting-private-enable">
                           Private
@@ -30,7 +31,7 @@
                           Public
                       </button>
                   </div>
-                  <input type="hidden" id="meeting-private" value="1" />
+                  <input type="hidden" id="meeting-private" value="{{meeting.private}}" />
               {{else}}
                   <button class="btn btn-default btn-sm meeting-private-title" id="meeting-private-enable">
                       Private
@@ -38,11 +39,11 @@
                   <button class="btn btn-primary btn-sm meeting-private-title" id="meeting-private-disable">
                       Public
                   </button>
-                  <input type="hidden" id="meeting-private" value="0" />
+                  <input type="hidden" id="meeting-private" value="{{meeting.private}}" />
               {{/if}}
             </div>
             <div class="meeting-priority-block">
-                <div id="meeting-priority" class="rateit"></div>
+                <div id="meeting-priority" class="rateit" data-rateit-value="{{meeting.priority}}"></div>
             </div>
             <div class="meeting-submit-block">
                 <input type="submit" value="Save" class="btn btn-primary btn-sm" />

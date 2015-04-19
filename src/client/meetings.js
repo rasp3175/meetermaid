@@ -16,13 +16,11 @@ if (Meteor.isClient) {
         }
     });
 //----------------form-----------------------------
-    Template.form.helpers({
-        private: true
-    });
 
     Template.form.events({
         "submit form": function (event) {
-            Meteor.call("addMeeting", {
+            Meteor.call("saveMeeting", {
+                _id: event.target['meeting-id'].value,
                 datetime: $('#datetimepicker').data("DateTimePicker").date().toDate(),
                 description: event.target['meeting-description'].value,
                 private: parseInt(event.target['meeting-private'].value),
@@ -51,4 +49,8 @@ if (Meteor.isClient) {
             return false;
         }
     });
+
+    Template.form.rendered = function() {
+        $('#datetimepicker').datetimepicker('setDate', this.data.meeting.datetime);
+    };
 }
