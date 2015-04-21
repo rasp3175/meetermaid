@@ -2,6 +2,9 @@ accounts-base@1.2.0
 accounts-password@1.1.1
 accounts-ui@1.1.5
 accounts-ui-unstyled@1.1.7
+aldeed:autoform@5.1.2
+aldeed:collection2@2.3.1
+aldeed:simple-schema@1.1.0
 autoupdate@1.2.1
 base64@1.0.3
 binary-heap@1.0.3
@@ -34,6 +37,7 @@ minimongo@1.0.8
 mobile-status-bar@1.0.3
 momentjs:moment@2.10.2
 mongo@1.1.0
+mrt:bootstrap-3@0.3.8
 npm-bcrypt@0.7.8_2
 observe-sequence@1.0.6
 ordered-dict@1.0.3
@@ -51,6 +55,7 @@ spacebars-compiler@1.0.6
 srp@1.0.3
 templating@1.1.1
 tracker@1.0.7
+tsega:bootstrap3-datetimepicker@4.7.14_4
 ui@1.0.6
 underscore@1.0.3
 url@1.0.4

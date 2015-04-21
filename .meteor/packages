@@ -8,3 +8,7 @@ meteor-platform
 accounts-ui
 accounts-password
 momentjs:moment
+aldeed:autoform
+aldeed:collection2
+mrt:bootstrap-3
+tsega:bootstrap3-datetimepicker

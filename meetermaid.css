@@ -32,7 +32,11 @@ header {
 }
 
 #login-buttons {
-  display: block;
+  /*display: block;*/
+}
+
+input {
+	border: 1px solid #cccccc;
 }
 
 h1 {
@@ -51,11 +55,8 @@ form {
 
 .new-meeting input {
   box-sizing: border-box;
-  padding: 10px 0;
+  padding: 10px 5px;
   background: transparent;
-  border: none;
-  width: 100%;
-  padding-right: 80px;
   font-size: 1em;
 }
 
@@ -63,6 +64,9 @@ form {
   outline: 0;
 }
 
+.new-meeting input.btn-save {
+	padding: 5px;
+}
 ul {
   margin: 0;
   padding: 0;
@@ -110,6 +114,146 @@ header .hide-completed {
   margin-left: 5px;
 }
 
+.left-logo {
+    max-width: 30px;
+}
+
+#login-buttons {
+
+    display: run-in;
+
+}
+.shows {
+	display: block;
+}
+
+.hides {
+	display: none;
+}
+form.new-meeting {
+	margin-bottom: 10px;
+}
+
+.sp-links {
+	cursor: pointer;
+}
+
+table td {
+	vertical-align: top;
+}
+.meetingrow {
+	border-bottom: 1px solid #cccccc;
+	padding-bottom: 10px;
+}
+
+.MeetingsForm .form-group .control-label {
+	display: none;
+}
+/*star css*/
+.starRating:not(old){
+  display        : inline-block;
+  width          : 7.5em;
+  height         : 1.5em;
+  overflow       : hidden;
+  vertical-align : bottom;
+}
+
+.starRating:not(old) > input{
+  margin-right : -100%;
+  opacity      : 0;
+}
+
+.starRating:not(old) > label{
+  display         : block;
+  float           : right;
+  position        : relative;
+  background      : url('star-off.svg');
+  background-size : contain;
+}
+
+.starRating:not(old) > label:before{
+  content         : '';
+  display         : block;
+  width           : 1.5em;
+  height          : 1.5em;
+  background      : url('star-on.svg');
+  background-size : contain;
+  opacity         : 0;
+  transition      : opacity 0.2s linear;
+}
+
+.starRating:not(old) > label:hover:before,
+.starRating:not(old) > label:hover ~ label:before,
+.starRating:not(:hover) > :checked ~ label:before{
+  opacity : 1;
+}
+
+/*
+about page css */
+
+.boxed-grey{
+	background-color: #efefef;
+	border: 1px solid #cccccc;
+	border-radius: 4px;
+}
+.team h5 {
+	font-weight: bold;
+}
+.team .subtitle {
+	font-size: 10px;
+}
+.team .inner {
+	text-align: center;
+}
+
+.team .avatar {
+	text-align: center;
+	
+}
+.team .avatar img {
+	display: inline;
+}
+
+.team .content {
+	margin-top: 10px;
+	font-size: 11px;
+}
+
+
+/*star for display only */
+.starRating1:not(old){
+  display        : inline-block;
+  width          : 7.5em;
+  height         : 1.5em;
+  overflow       : hidden;
+  vertical-align : bottom;
+}
+
+.starRating1:not(old) > input{
+  margin-right : -100%;
+  opacity      : 0;
+}
+
+.starRating1:not(old) > label{
+  display         : block;
+  float           : right;
+  position        : relative;
+  background      : url('star-off.svg');
+  background-size : contain;
+}
+
+.starRating1:not(old) > label:before{
+  content         : '';
+  display         : block;
+  width           : 1.5em;
+  height          : 1.5em;
+  background      : url('star-on.svg');
+  background-size : contain;
+  opacity         : 0;
+  transition      : opacity 0.2s linear;
+}
+
+/*star css ends*/
 @media (max-width: 600px) {
   li {
     padding: 12px 15px;

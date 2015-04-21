@@ -1,44 +1,147 @@
 <head>
-  <title>MeeterMaid</title>
+    <title>MeeterMaid</title>
 </head>
 <body>
-<div class="container">
-    <header>
-        <img src="/mm_logo.png"/>
-      <h1>MeeterMaid</h1>
-        <p>A simple app to help you pause and reflect on your day.</p>
-        {{> loginButtons}}
-        {{#if currentUser}}
-          <form class="new-meeting">
-              <input type="text" name="subject" placeholder="Type to add a new meeting" />
-        </form>
-        {{/if}}
-    </header>
-    <ul>
-      {{#each meetings}}
-        {{> meeting}}
-      {{/each}}
-    </ul>
-  </div>
+    <div class="container">
+        <header>
+            <img src="/mm_logo.png" class="{{#if currentUser}} left-logo {{/if}}"/>
+            <h1>MeeterMaid</h1>
+{{#if currentUser}}
+            <a class="sp-links today">Today</a> | 
+{{/if}}
+            <a class="sp-links timeline">Timeline</a> | 
+            <a class="sp-links about">About</a> | 
+            {{> loginButtons}}
+        </header>
+	{{> MeetingsForm}}
+	{{> meeting}}
+	{{> about}}
+
+    </div>
 </body>
 
+<template name="MeetingsForm" style="">
+	{{#if showtoday}}
+	<h3>Today</h3>
+	<hr/>
+	<p>A simple app to help you pause and reflect on your day.</p>
+	{{#autoForm collection="Meetings" id="MeetingsForm" type="insert"}}
+	    <fieldset>
+	    
+	      <legend></legend>
+	      {{> afQuickField name='title' placeholder="schemaLabel"}}
+	      {{> afQuickField name='date_time'}}
+	      {{> afQuickField name='meeting_notes' placeholder="Type here" rows=6}}
+	      {{> afQuickField name='is_private'}}
+	      <span class="starRating">
+	  	  <input id="rating5" type="radio" name="rating" value="5">
+		  <label for="rating5">5</label>
+		  <input id="rating4" type="radio" name="rating" value="4">
+		  <label for="rating4">4</label>
+		  <input id="rating3" type="radio" name="rating" value="3">
+		  <label for="rating3">3</label>
+		  <input id="rating2" type="radio" name="rating" value="2">
+		  <label for="rating2">2</label>
+		  <input id="rating1" type="radio" name="rating" value="1">
+		  <label for="rating1">1</label>
+	      </span>
+	    <br/>
+	    
+	    </fieldset>
+	    <button type="submit" class="btn btn-primary" style="margin-top: 20px;">Insert</button>
+
+	  {{/autoForm}}
+	  
+	  {{/if}}
+</template>
+
 <template name="meeting">
-<li class="{{#if checked}}checked{{/if}} {{#if private}}private{{/if}}">
-    <button class="delete">&times;</button>
+	{{#if showtimeline}}
+	<h3>Here is your meeting notes timeline</h3>
+	<hr>
+	{{#each timelinedata}}
+	
+	<div class="row meetingrow">
+	<div class="col-xs-4 col-sm-4 col-md-4">
+	<p><strong>{{title}}</strong></p>
+	<p>
+	<span class="starRating1">
+	  <input id="rating5" type="radio" name="rating" value="5">
+	  <label for="rating5">5</label>
+	  <input id="rating4" type="radio" name="rating" value="4">
+	  <label for="rating4">4</label>
+	  <input id="rating3" type="radio" name="rating" value="3">
+	  <label for="rating3">3</label>
+	  <input id="rating2" type="radio" name="rating" value="2">
+	  <label for="rating2">2</label>
+	  <input id="rating1" type="radio" name="rating" value="1">
+	  <label for="rating1">1</label>
+	</span>
+	</p>
+	<p style="font-size: 10px; color: #dddddd">
+	{{date_time}}
+	</p>
+	</div>
+	<div class="col-xs-8 col-sm-8 col-md-8">
+	{{meeting_notes}}
+	</div>
+	</div>
+	{{/each}}
+	{{/if}}
+</template>
 
-    <input type="checkbox" checked="{{checked}}" class="toggle-checked" />
-        {{#if isOwner}}
-  <button class="toggle-private">
-    {{#if private}}
-      Private
-    {{else}}
-      Public
-    {{/if}}
-  </button>
-{{/if}}
-
-    <span class="text"><strong>{{username}}</strong></span>
-    <span class="text">{{subject}}</span>
-    <span class="text">{{start}}</span>
-  </li>
+<template name="about">
+	{{#if showabout}}
+		<h3>About us</h3>
+		<hr>
+		<div class="row">
+		    <div class="col-xs-12 col-sm-12 col-md-18" style="text-align: justify">
+		         <p> 
+		    	Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+		    </p>
+		    </div>
+		    
+		<div class="col-xs-4 col-sm-4 col-md-4">
+		        <div class="team boxed-grey">
+		            <div class="inner">
+				<h5>Abilash Arjunan</h5>
+		                <p class="subtitle">Sr. Developer</p>
+		                <div class="avatar"><img src="http://placehold.it/64x64" alt="avatar" class="img-responsive img-square" />
+		                </div>
+		                <div class="content">
+	                		Total of 255 char to enter in here It has survived not only five centuries, but also the leap into electronic
+		                </div>
+		            </div>
+		        </div>
+		</div>
+		
+		<div class="col-xs-4 col-sm-4 col-md-4">
+		        <div class="team boxed-grey">
+		            <div class="inner">
+				<h5>Abilash Arjunan</h5>
+		                <p class="subtitle">Developer</p>
+		                <div class="avatar"><img src="http://placehold.it/64x64" alt="avatar" class="img-responsive img-square" />
+		                </div>
+		                <div class="content">
+	                		Total of 255 char to enter in here It has survived not only five centuries, but also the leap into electronic
+		                </div>
+		            </div>
+		        </div>
+		</div>
+		
+		<div class="col-xs-4 col-sm-4 col-md-4">
+		        <div class="team boxed-grey">
+		            <div class="inner">
+				<h5>Abilash Arjunan</h5>
+		                <p class="subtitle">Jr. developer</p>
+		                <div class="avatar"><img src="http://placehold.it/64x64" alt="avatar" class="img-responsive img-square" />
+		                </div>
+		                <div class="content">
+	                		Total of 255 char to enter in here It has survived not only five centuries, but also the leap into electronic
+		                </div>
+		            </div>
+		        </div>
+		</div>
+	</div>
+	{{/if}}
 </template>
