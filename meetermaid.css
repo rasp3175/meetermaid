@@ -1,4 +1,5 @@
 /* CSS declarations go here */
+
 body {
     font-family: Helvetica, Arial, sans-serif;
     padding: 0;
@@ -6,7 +7,9 @@ body {
     font-size: 14px;
 }
 
-.logo a:active, .logo a:hover, .logo a:link {
+.logo a:active,
+.logo a:hover,
+.logo a:link {
     text-decoration: none;
 }
 
@@ -22,10 +25,11 @@ body {
 
 .welcome-block {
     text-align: center;
-    margin-top: calc(50vh - 144px);
+    margin-top: calc(50vh - 269px);
 }
 
-.meeting-title-block, .meeting-datetime-block {
+.meeting-title-block,
+.meeting-datetime-block {
     float: left;
     margin-bottom: 5px;
 }
@@ -39,7 +43,9 @@ body {
     width: 35%;
 }
 
-.meeting-privacy-block, .meeting-priority-block, .meeting-submit-block {
+.meeting-privacy-block,
+.meeting-priority-block,
+.meeting-submit-block {
     float: left;
     padding-right: 5px;
     margin-top: 5px;
@@ -49,7 +55,8 @@ body {
     padding-top: 7px;
 }
 
-.meeting-main-info, .meeting-info-description {
+.meeting-main-info,
+.meeting-info-description {
     float: left;
 }
 
@@ -78,10 +85,10 @@ body {
     font-style: italic;
 }
 
-@media screen and (max-width:480px) {
-
-    .meeting-privacy-block, .meeting-priority-block, .meeting-submit-block {
+@media screen and (max-width: 480px) {
+    .meeting-privacy-block,
+    .meeting-priority-block,
+    .meeting-submit-block {
         float: none;
     }
-
 }
