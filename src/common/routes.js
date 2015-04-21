@@ -41,7 +41,7 @@ Router.map(function () {
         template: 'list',
         data: function() {
             return {
-                meetings: getMeetings({datetime: {$gte: new Date()}})
+                meetings: getMeetings({})
             };
         }
     });
@@ -50,12 +50,15 @@ Router.map(function () {
         path: '/today',
         template: 'list',
         data: function() {
+            var todayStart = new Date();
+            todayStart.setHours(0, 0, 0, 0);
+
             var todayEnd = new Date();
             todayEnd.setHours(23, 59, 59, 999);
 
             return {
                 meetings: getMeetings({datetime: {
-                    $gte: new Date(),
+                    $gte: todayStart,
                     $lte: todayEnd
                 }})
             };
