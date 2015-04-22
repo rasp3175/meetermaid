@@ -1,94 +1,92 @@
 /* CSS declarations go here */
 
 body {
-    font-family: Helvetica, Arial, sans-serif;
-    padding: 0;
-    margin: 0;
-    font-size: 14px;
+	font-family: Helvetica, Arial, sans-serif;
+	padding: 0;
+	margin: 0;
+	font-size: 14px;
+	padding-top: 50px;
 }
 
 .logo a:active,
 .logo a:hover,
 .logo a:link {
-    text-decoration: none;
+	text-decoration: none;
 }
 
 .logo {
-    float: left;
-    width: auto;
+	float: left;
+	width: auto;
 }
 
-.navigation {
-    float: left;
-    margin: 15px 8px 0 8px;
-}
+.navbar {}
 
 .welcome-block {
-    text-align: center;
-    margin-top: calc(50vh - 269px);
+	text-align: center;
+	margin-top: 10px;
 }
 
 .meeting-title-block,
 .meeting-datetime-block {
-    float: left;
-    margin-bottom: 5px;
+	float: left;
+	margin-bottom: 5px;
 }
 
 .meeting-title-block {
-    width: 65%;
-    padding-right: 5px;
+	width: 65%;
+	padding-right: 5px;
 }
 
 .meeting-datetime-block {
-    width: 35%;
+	width: 35%;
 }
 
 .meeting-privacy-block,
 .meeting-priority-block,
 .meeting-submit-block {
-    float: left;
-    padding-right: 5px;
-    margin-top: 5px;
+	float: left;
+	padding-right: 5px;
+	margin-top: 5px;
 }
 
 .meeting-priority-block {
-    padding-top: 7px;
+	padding-top: 7px;
 }
 
 .meeting-main-info,
 .meeting-info-description {
-    float: left;
+	float: left;
 }
 
 .meeting-main-info {
-    width: 35%;
-    padding-right: 10px;
+	width: 35%;
+	padding-right: 10px;
 }
 
 .meeting-info-description {
-    width: 65%;
+	width: 65%;
 }
 
 .meeting-list {
-    margin: 0;
-    padding: 0;
+	margin: 0;
+	padding: 0;
 }
 
 .meeting-list LI {
-    border-top: 1px solid #777;
-    list-style-type: none;
-    margin: 0;
-    padding: 6px 0 10px;
+	border-top: 1px solid #777;
+	list-style-type: none;
+	margin: 0;
+	padding: 6px 0 10px;
 }
 
 .empty-meeting-description {
-    font-style: italic;
+	font-style: italic;
 }
 
 @media screen and (max-width: 480px) {
-    .meeting-privacy-block,
-    .meeting-priority-block,
-    .meeting-submit-block {
-        float: none;
-    }
+	.meeting-privacy-block,
+	.meeting-priority-block,
+	.meeting-submit-block {
+		float: none;
+	}
 }

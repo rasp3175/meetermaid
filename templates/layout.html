@@ -1,15 +1,15 @@
 <template name="layout">
-    <head>
-        <title>MeeterMaid</title>
-    </head>
-    <body>
-    <div class="container">
-      {{#if currentUser}}
-          <header>
-            {{> navigation }}
-          </header>
-      {{/if}}
-      {{> yield}}
-    </div>
-    </body>
+
+	<head>
+		<title>MeeterMaid</title>
+	</head>
+
+	<body>
+		<div class="container">
+			<header>
+				{{> navigation }}
+			</header>
+			{{> yield}}
+		</div>
+	</body>
 </template>

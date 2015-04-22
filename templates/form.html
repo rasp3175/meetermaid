@@ -1,66 +1,65 @@
 <template name="form">
-    <p>Time to pause and reflect on your meeting today!</p>
-    <form>
-        <div>
-            <input type="hidden" id="meeting-id" value="{{meeting._id}}" />
-            <div class="meeting-title-block">
-                <input type="text" maxlength="60" class="form-control" name="meeting-title" placeholder="Meeting Title" value="{{meeting.title}}" />
-            </div>
-            <div class="meeting-datetime-block">
-                <div class='input-group date' id='datetimepicker'>
-                    <input type='text' class="form-control" id="meeting-datetime" placeholder="Time" />
-                    <span class="input-group-addon">
+	<h1>Add a meeting</h1>
+	<p>Time to pause and reflect on your meeting!</p>
+	<form>
+		<div>
+			<input type="hidden" id="meeting-id" value="{{meeting._id}}" />
+			<div class="meeting-title-block">
+				<input type="text" maxlength="60" class="form-control" name="meeting-title" placeholder="Meeting Title" value="{{meeting.title}}" />
+			</div>
+			<div class="meeting-datetime-block">
+				<div class='input-group date' id='datetimepicker'>
+					<input type='text' class="form-control" id="meeting-datetime" placeholder="Time" />
+					<span class="input-group-addon">
                         <span class="glyphicon glyphicon-calendar"></span>
-                    </span>
-                </div>
-            </div>
-            <div style="clear:both"></div>
-            <div class="meeting-description-title">
-                <label for="meeting-description" class="control-label">Meeting Notes</label>
-            </div>
-            <div class="meeting-description-block">
-                <textarea name="meeting-description" id="meeting-description" maxlength="255" placeholder="Type here" class="form-control">{{meeting.description}}</textarea>
-            </div>
-            <div class="meeting-privacy-block">
-              {{#if meeting.private}}
-                  <div class="btn-group" role="group">
-                      <button class="btn btn-primary btn-sm meeting-private-title" id="meeting-private-enable">
-                          Private
-                      </button>
-                      <button class="btn btn-default btn-sm meeting-private-title" id="meeting-private-disable">
-                          Public
-                      </button>
-                  </div>
-                  <input type="hidden" id="meeting-private" value="{{meeting.private}}" />
-              {{else}}
-                  <button class="btn btn-default btn-sm meeting-private-title" id="meeting-private-enable">
-                      Private
-                  </button>
-                  <button class="btn btn-primary btn-sm meeting-private-title" id="meeting-private-disable">
-                      Public
-                  </button>
-                  <input type="hidden" id="meeting-private" value="{{meeting.private}}" />
-              {{/if}}
-            </div>
-            <div class="meeting-priority-block">
-                <div id="meeting-priority" class="rateit" data-rateit-value="{{meeting.priority}}"></div>
-            </div>
-            <div class="meeting-submit-block">
-                <input type="submit" value="Save" class="btn btn-primary btn-sm" />
-            </div>
+					</span>
+				</div>
+			</div>
+			<div style="clear:both"></div>
+			<div class="meeting-description-title">
+				<label for="meeting-description" class="control-label">Meeting Notes</label>
+			</div>
+			<div class="meeting-description-block">
+				<textarea name="meeting-description" id="meeting-description" maxlength="255" placeholder="Type here" class="form-control">{{meeting.description}}</textarea>
+			</div>
+			<div class="meeting-privacy-block">
+				{{#if meeting.private}}
+				<div class="btn-group" role="group">
+					<button class="btn btn-primary btn-sm meeting-private-title" id="meeting-private-enable">
+						Private
+					</button>
+					<button class="btn btn-default btn-sm meeting-private-title" id="meeting-private-disable">
+						Public
+					</button>
+				</div>
+				<input type="hidden" id="meeting-private" value="{{meeting.private}}" /> {{else}}
+				<button class="btn btn-default btn-sm meeting-private-title" id="meeting-private-enable">
+					Private
+				</button>
+				<button class="btn btn-primary btn-sm meeting-private-title" id="meeting-private-disable">
+					Public
+				</button>
+				<input type="hidden" id="meeting-private" value="{{meeting.private}}" /> {{/if}}
+			</div>
+			<div class="meeting-priority-block">
+				<div id="meeting-priority" class="rateit" data-rateit-value="{{meeting.priority}}"></div>
+			</div>
+			<div class="meeting-submit-block">
+				<input type="submit" value="Save" class="btn btn-primary btn-sm" />
+			</div>
 
-            {{#if meeting._id}}
-            <div class="meeting-submit-block">
-                <input type="button" value="Delete" class="btn btn-danger btn-sm" id="delete-meeting" />
-            </div>
-            {{/if}}
-            <div style="clear:both"></div>
-        </div>
-    </form>
-    <script type="text/javascript">
-        $(function () {
-            $('#datetimepicker').datetimepicker();
-            $('.rateit').rateit();
-        });
-    </script>
+			{{#if meeting._id}}
+			<div class="meeting-submit-block">
+				<input type="button" value="Delete" class="btn btn-danger btn-sm" id="delete-meeting" />
+			</div>
+			{{/if}}
+			<div style="clear:both"></div>
+		</div>
+	</form>
+	<script type="text/javascript">
+		$(function () {
+			$('#datetimepicker').datetimepicker();
+			$('.rateit').rateit();
+		});
+	</script>
 </template>
