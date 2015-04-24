@@ -6,6 +6,7 @@ Router.map(function () {
             return {
                 meeting: {
                     _id: null,
+                    attendants: '',
                     datetime: null,
                     description: '',
                     private: 1,

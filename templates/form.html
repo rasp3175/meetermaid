@@ -1,5 +1,9 @@
 <template name="form">
-	<h1>Add a meeting</h1>
+	{{#if meeting._id}}
+        <h1>Edit the meeting</h1>
+	{{else}}
+        <h1>Add a meeting</h1>
+	{{/if}}
 	<p>Time to pause and reflect on your meeting!</p>
 
 
@@ -26,12 +30,18 @@
 				</div>
 			</div>
 			<div style="clear:both"></div>
-			<div class="meeting-description-title">
-				<label for="meeting-description" class="control-label">Meeting Notes</label>
-			</div>
-			<div class="meeting-description-block">
-				<textarea name="meeting-description" id="meeting-description" maxlength="255" placeholder="Type here" class="form-control">{{meeting.description}}</textarea>
-			</div>
+            <div class="meeting-description-title">
+                <label for="meeting-description" class="control-label">Meeting Notes</label>
+            </div>
+            <div class="meeting-description-block">
+                <textarea name="meeting-description" id="meeting-description" maxlength="255" placeholder="Type here" class="form-control">{{meeting.description}}</textarea>
+            </div>
+            <div class="meeting-attendants-title">
+                <label for="meeting-attendants" class="control-label">Attendants</label>
+            </div>
+            <div class="meeting-attendants-block">
+                <textarea name="meeting-attendants" id="meeting-attendants" placeholder="Separate email addresses by comma" class="form-control">{{meeting.attendants}}</textarea>
+            </div>
 			<div class="meeting-privacy-block">
 				{{#if meeting.private}}
 				<div class="btn-group" role="group">

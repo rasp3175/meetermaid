@@ -10,6 +10,7 @@ if (Meteor.isClient) {
             if((title.length > 0) && datetime) {
                 Meteor.call("saveMeeting", {
                     _id: event.target['meeting-id'].value,
+                    attendants: event.target['meeting-attendants'].value,
                     datetime: datetime.toDate(),
                     description: event.target['meeting-description'].value,
                     private: parseInt(event.target['meeting-private'].value),
