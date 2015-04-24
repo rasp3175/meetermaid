@@ -1,6 +1,16 @@
 <template name="form">
 	<h1>Add a meeting</h1>
 	<p>Time to pause and reflect on your meeting!</p>
+
+
+    <div class="alert alert-danger" id="error-block">
+        <button class="close" type="button" data-dismiss="alert">&times;</button>
+		<ul>
+            <li id="empty-title">The title cannot be empty</li>
+            <li id="empty-datetime">The date &amp; time should be specified</li>
+		</ul>
+    </div>
+
 	<form>
 		<div>
 			<input type="hidden" id="meeting-id" value="{{meeting._id}}" />

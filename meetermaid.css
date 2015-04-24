@@ -83,6 +83,34 @@ body {
 	font-style: italic;
 }
 
+#error-block UL LI {
+	list-style-type: none;
+}
+
+#error-block {
+	display: none;
+}
+
+#error-block.error-detected {
+	display: block;
+}
+
+#error-block #empty-title {
+	display: none;
+}
+
+#error-block.empty-title #empty-title {
+	display: block;
+}
+
+#error-block #empty-datetime {
+	display: none;
+}
+
+#error-block.empty-datetime #empty-datetime {
+	display: block;
+}
+
 @media screen and (max-width: 480px) {
 	.meeting-privacy-block,
 	.meeting-priority-block,

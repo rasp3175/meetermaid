@@ -3,16 +3,31 @@ if (Meteor.isClient) {
 
     Template.form.events({
         "submit form": function (event) {
-            Meteor.call("saveMeeting", {
-                _id: event.target['meeting-id'].value,
-                datetime: $('#datetimepicker').data("DateTimePicker").date().toDate(),
-                description: event.target['meeting-description'].value,
-                private: parseInt(event.target['meeting-private'].value),
-                priority: $('#meeting-priority').rateit('value'),
-                title: event.target['meeting-title'].value
-            });
+            var title = event.target['meeting-title'].value.trim();
+            var datetime = $('#datetimepicker').data("DateTimePicker").date();
 
-            Router.go('/list');
+            $('#error-block').removeClass('error-detected empty-title empty-datetime');
+            if((title.length > 0) && datetime) {
+                Meteor.call("saveMeeting", {
+                    _id: event.target['meeting-id'].value,
+                    datetime: datetime.toDate(),
+                    description: event.target['meeting-description'].value,
+                    private: parseInt(event.target['meeting-private'].value),
+                    priority: $('#meeting-priority').rateit('value'),
+                    title: title
+                });
+
+                Router.go('/list');
+            } else {
+                $('#error-block').addClass('error-detected');
+                if(title.length === 0) $('#error-block').addClass('empty-title');
+                if(!datetime) $('#error-block').addClass('empty-datetime');
+            }
+
+            return false;
+        },
+        'click #error-block button.close': function() {
+            $('#error-block').removeClass('error-detected');
             return false;
         },
         'click #delete-meeting': function() {
