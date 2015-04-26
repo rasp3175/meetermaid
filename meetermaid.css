@@ -26,19 +26,24 @@ body {
 	margin-top: 10px;
 }
 
-.meeting-title-block,
 .meeting-datetime-block {
-	float: left;
+	margin-right: 4%;
+}
+
+.meeting-title-block,
+.meeting-datetime-end-block,
+.meeting-datetime-block {
 	margin-bottom: 5px;
 }
 
-.meeting-title-block {
-	width: 65%;
-	padding-right: 5px;
+.meeting-datetime-end-block,
+.meeting-datetime-block {
+	float: left;
+	width: 48%;
 }
 
-.meeting-datetime-block {
-	width: 35%;
+.meeting-title-block {
+	width: 100%;
 }
 
 .meeting-privacy-block,
@@ -108,6 +113,14 @@ body {
 }
 
 #error-block.empty-datetime #empty-datetime {
+	display: block;
+}
+
+#error-block #incorrect-datetime-range {
+	display: none;
+}
+
+#error-block.incorrect-datetime-range #incorrect-datetime-range {
 	display: block;
 }
 

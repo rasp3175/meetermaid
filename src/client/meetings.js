@@ -4,14 +4,16 @@ if (Meteor.isClient) {
     Template.form.events({
         "submit form": function (event) {
             var title = event.target['meeting-title'].value.trim();
-            var datetime = $('#datetimepicker').data("DateTimePicker").date();
+            var datetime = $('#meeting-datetime-picker').data("DateTimePicker").date();
+            var datetimeEnd = $('#meeting-datetime-end-picker').data("DateTimePicker").date();
 
             $('#error-block').removeClass('error-detected empty-title empty-datetime');
-            if((title.length > 0) && datetime) {
+            if((title.length > 0) && datetime && (!datetimeEnd || (datetimeEnd.toDate() >= datetime.toDate()) )) {
                 Meteor.call("saveMeeting", {
                     _id: event.target['meeting-id'].value,
                     attendants: event.target['meeting-attendants'].value,
                     datetime: datetime.toDate(),
+                    datetimeEnd: datetimeEnd ? datetimeEnd.toDate() : null,
                     description: event.target['meeting-description'].value,
                     private: parseInt(event.target['meeting-private'].value),
                     priority: $('#meeting-priority').rateit('value'),
@@ -23,6 +25,7 @@ if (Meteor.isClient) {
                 $('#error-block').addClass('error-detected');
                 if(title.length === 0) $('#error-block').addClass('empty-title');
                 if(!datetime) $('#error-block').addClass('empty-datetime');
+                if(datetimeEnd.toDate() < datetime.toDate()) $('#error-block').addClass('incorrect-datetime-range');
             }
 
             return false;
@@ -55,7 +58,8 @@ if (Meteor.isClient) {
     });
 
     Template.form.rendered = function() {
-        $('#datetimepicker').datetimepicker().data('DateTimePicker').date(this.data.meeting.datetime);
+        $('#meeting-datetime-picker').datetimepicker().data('DateTimePicker').date(this.data.meeting.datetime);
+        $('#meeting-datetime-end-picker').datetimepicker().data('DateTimePicker').date(this.data.meeting.datetimeEnd);
         $('.rateit').rateit();
     };
 }

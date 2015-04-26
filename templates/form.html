@@ -10,6 +10,9 @@
     <div class="alert alert-danger" id="error-block">
         <button class="close" type="button" data-dismiss="alert">&times;</button>
 		<ul>
+            <li id="incorrect-datetime-range">
+				The meeting end date &amp; time cannot be less than the meeting begin date &amp; time
+			</li>
             <li id="empty-title">The title cannot be empty</li>
             <li id="empty-datetime">The date &amp; time should be specified</li>
 		</ul>
@@ -25,27 +28,39 @@
                 <input type="text" maxlength="60" class="form-control" name="meeting-title" placeholder="Meeting Title" value="My Meeting" />
 			{{/if}}
 			</div>
-			<div class="meeting-datetime-block">
-				<div class='input-group date' id='datetimepicker'>
-					<input type='text' class="form-control" id="meeting-datetime" placeholder="Time" />
+
+            <div class="meeting-datetime-block">
+                <div class='input-group date' id='meeting-datetime-picker'>
+                    <input type='text' class="form-control" id="meeting-datetime" placeholder="Time" />
 					<span class="input-group-addon">
                         <span class="glyphicon glyphicon-calendar"></span>
 					</span>
-				</div>
-			</div>
+                </div>
+            </div>
+            <div class="meeting-datetime-end-block">
+                <div class='input-group date' id='meeting-datetime-end-picker'>
+                    <input type='text' class="form-control" id="meeting-datetime-end" placeholder="End Date Time" />
+					<span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+					</span>
+                </div>
+            </div>
 			<div style="clear:both"></div>
+
             <div class="meeting-description-title">
                 <label for="meeting-description" class="control-label">Meeting Notes</label>
             </div>
             <div class="meeting-description-block">
                 <textarea name="meeting-description" id="meeting-description" maxlength="255" placeholder="Type here" class="form-control">{{meeting.description}}</textarea>
             </div>
+
             <div class="meeting-attendants-title">
                 <label for="meeting-attendants" class="control-label">Attendants</label>
             </div>
             <div class="meeting-attendants-block">
                 <textarea name="meeting-attendants" id="meeting-attendants" placeholder="Separate email addresses by comma" class="form-control">{{meeting.attendants}}</textarea>
             </div>
+
 			<div class="meeting-privacy-block">
 				{{#if meeting.private}}
 				<div class="btn-group" role="group">

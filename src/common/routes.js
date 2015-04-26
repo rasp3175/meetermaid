@@ -3,11 +3,15 @@ Router.map(function () {
         path: '/',
         template: 'main',
         data: function () {
+            var datetimeEnd = new Date();
+            datetimeEnd.setMinutes(datetimeEnd.getMinutes() + 30);
+
             return {
                 meeting: {
                     _id: null,
                     attendants: '',
                     datetime: new Date(),
+                    datetimeEnd: datetimeEnd,
                     description: '',
                     private: 1,
                     priority: 0,
