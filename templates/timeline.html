@@ -1,4 +1,19 @@
 <template name="timeline">
     <p>Here is your meeting notes timeline</p>
-    {{> list meetings=meetings}}
+    {{#if upcoming.length}}
+        <h3>Upcoming</h3>
+        {{> list meetings=upcoming}}
+    {{/if}}
+    {{#if today.length}}
+        <h3>Today</h3>
+        {{> list meetings=today}}
+    {{/if}}
+    {{#if week.length}}
+        <h3>This Week</h3>
+        {{> list meetings=week}}
+    {{/if}}
+    {{#if older.length}}
+        <h3>Last Week and Older</h3>
+        {{> list meetings=older}}
+    {{/if}}
 </template>

@@ -52,7 +52,31 @@ Router.map(function () {
         path: '/timeline',
         template: 'timeline',
         data: function() {
-            return {meetings: getMeetingsByDateRange({})};
+            var todayBegin = new Date();
+            todayBegin.setHours(0, 0, 0, 0);
+
+            var todayEnd = new Date();
+            todayEnd.setHours(23, 59, 59, 999);
+
+            var tomorrowBegin = new Date(todayBegin);
+            tomorrowBegin.setDate(tomorrowBegin.getDate() + 1);
+
+            var now = new Date();
+            var weekBegin = new Date( now.setDate(now.getDate() - now.getDay() + (now.getDay() == 0 ? -6 : 1)) );
+            weekBegin.setHours(0, 0, 0, 0);
+
+            var lastWeekEnd = new Date(weekBegin);
+            lastWeekEnd.setMilliseconds(lastWeekEnd.getMilliseconds() - 1);
+
+            var yesterdayEnd = new Date(todayEnd);
+            yesterdayEnd.setDate(yesterdayEnd.getDate() - 1);
+
+            return {
+                upcoming: getMeetingsByDateRange({begin: tomorrowBegin}),
+                today: getMeetingsByDateRange({begin: todayBegin, end: todayEnd}),
+                week: getMeetingsByDateRange({begin: weekBegin, end: yesterdayEnd}),
+                older: getMeetingsByDateRange({end: lastWeekEnd})
+            };
         }
     });
 
