@@ -41,32 +41,32 @@ Router.map(function () {
         return Meetings.find({$or: [currentUserMeetingsCriteria, publicMeetingsCriteria]}, {sort: {datetime: -1}}).fetch();
     };
 
-    this.route('list', {
-        path: '/list',
-        template: 'list',
+    var getMeetingsByDateRange = function(inputCriteria) {
+        var criteria = {};
+        if(inputCriteria.begin) criteria.$gte = inputCriteria.begin;
+        if(inputCriteria.end) criteria.$lte = inputCriteria.end;
+        return getMeetings({datetime: criteria});
+    };
+
+    this.route('timeline', {
+        path: '/timeline',
+        template: 'timeline',
         data: function() {
-            return {
-                meetings: getMeetings({})
-            };
+            return {meetings: getMeetingsByDateRange({})};
         }
     });
 
     this.route('today', {
         path: '/today',
-        template: 'list',
+        template: 'today',
         data: function() {
-            var todayStart = new Date();
-            todayStart.setHours(0, 0, 0, 0);
+            var todayBegin = new Date();
+            todayBegin.setHours(0, 0, 0, 0);
 
             var todayEnd = new Date();
             todayEnd.setHours(23, 59, 59, 999);
 
-            return {
-                meetings: getMeetings({datetime: {
-                    $gte: todayStart,
-                    $lte: todayEnd
-                }})
-            };
+            return {meetings: getMeetingsByDateRange({begin: todayBegin, end: todayEnd})};
         }
     });
 });

@@ -20,7 +20,7 @@ if (Meteor.isClient) {
                     title: title
                 });
 
-                Router.go('/list');
+                Router.go('/timeline');
             } else {
                 $('#error-block').addClass('error-detected');
                 if(title.length === 0) $('#error-block').addClass('empty-title');
@@ -36,7 +36,7 @@ if (Meteor.isClient) {
         },
         'click #delete-meeting': function() {
             Meteor.call("deleteMeeting", $('#meeting-id').val());
-            Router.go('/list');
+            Router.go('/timeline');
         },
         'click .meeting-private-title': function(event) {
             var currentValue = $('#meeting-private').val();
