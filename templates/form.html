@@ -19,7 +19,11 @@
 		<div>
 			<input type="hidden" id="meeting-id" value="{{meeting._id}}" />
 			<div class="meeting-title-block">
+			{{#if meeting.title}}
 				<input type="text" maxlength="60" class="form-control" name="meeting-title" placeholder="Meeting Title" value="{{meeting.title}}" />
+			{{else}}
+                <input type="text" maxlength="60" class="form-control" name="meeting-title" placeholder="Meeting Title" value="My Meeting" />
+			{{/if}}
 			</div>
 			<div class="meeting-datetime-block">
 				<div class='input-group date' id='datetimepicker'>
