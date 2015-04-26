@@ -55,6 +55,7 @@ if (Meteor.isClient) {
     });
 
     Template.form.rendered = function() {
-        $('#datetimepicker').datetimepicker('setDate', this.data.meeting.datetime);
+        $('#datetimepicker').datetimepicker().data('DateTimePicker').date(this.data.meeting.datetime);
+        $('.rateit').rateit();
     };
 }

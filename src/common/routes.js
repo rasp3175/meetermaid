@@ -7,7 +7,7 @@ Router.map(function () {
                 meeting: {
                     _id: null,
                     attendants: '',
-                    datetime: null,
+                    datetime: new Date(),
                     description: '',
                     private: 1,
                     priority: 0,
