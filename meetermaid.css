@@ -124,6 +124,29 @@ body {
 	display: block;
 }
 
+.report-period {
+	width: 80px;
+}
+
+.report-value {
+	width: 40px;
+}
+
+.report-period, .report-value {
+	font-weight: bold;
+	padding-top: 9px;
+}
+
+.report-period, .report-bar, .report-value {
+	float: left;
+	height: 30px;
+}
+
+.report-bar {
+	margin: 3px 6px;
+	border-radius: 4px;
+}
+
 @media screen and (max-width: 480px) {
 	.meeting-privacy-block,
 	.meeting-priority-block,

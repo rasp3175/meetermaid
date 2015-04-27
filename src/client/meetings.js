@@ -62,4 +62,13 @@ if (Meteor.isClient) {
         $('#meeting-datetime-end-picker').datetimepicker().data('DateTimePicker').date(this.data.meeting.datetimeEnd);
         $('.rateit').rateit();
     };
+
+    Template.weeklyReport.helpers({
+        getLoadLevel: function(hours) {
+            return hours <= 3 ? 'bg-success' : (hours >= 6 ? 'bg-danger' : 'bg-warning');
+        },
+        getBarWidth: function(hours) {
+            return hours / 24 * 40;
+        }
+    });
 }
