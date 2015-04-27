@@ -1,0 +1,6 @@
+<template name="weeklyReport">
+    <h1>Weekly Report ({{formatDate period.begin 'MMM DD, YYYY'}} - {{formatDate period.end 'MMM DD, YYYY'}})</h1>
+    {{#each statistics}}
+        <div>{{formatDate date 'ddd, MMM DD'}}: {{roundNumber hours 2}}h</div>
+    {{/each}}
+</template>

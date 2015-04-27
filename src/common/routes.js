@@ -80,6 +80,76 @@ Router.map(function () {
         }
     });
 
+    this.route('weekly-report', {
+        path: '/weekly-report',
+        template: 'weeklyReport',
+        data: function() {
+            var now = new Date();
+            var lastWeekBegin = new Date( now.setDate(now.getDate() - now.getDay() + (now.getDay() == 0 ? -6 : 1)) );
+            lastWeekBegin.setDate(lastWeekBegin.getDate() - 7);
+
+            var statistics = [];
+
+            var getOwnMeetings = function(dateBegin, dateEnd) {
+                var beginMeetingCriteria = {owner: Meteor.userId()};
+                var endMeetingCriteria = $.extend(true, {}, beginMeetingCriteria);
+                var dateCriteria = {
+                    $gte: dateBegin,
+                    $lte: dateEnd
+                };
+
+                beginMeetingCriteria.datetime = dateCriteria;
+                endMeetingCriteria.datetimeEnd = dateCriteria;
+                return Meetings.find({$or: [beginMeetingCriteria, endMeetingCriteria]}).fetch();
+            };
+
+            var getMeetingDayDuration = function(meetingBegin, meetingEnd, dayBegin, dayEnd) {
+                return Math.min(meetingEnd.getTime(), dayEnd.getTime()) - Math.max(meetingBegin.getTime(), dayBegin.getTime());
+            };
+
+            var getTotalMeetingHours = function(date) {
+                var dateBegin = new Date(date);
+                dateBegin.setHours(0, 0, 0, 0);
+
+                var dateEnd = new Date(date);
+                dateEnd.setHours(23, 59, 59, 999);
+
+                var meetings = getOwnMeetings(dateBegin, dateEnd);
+                var milliseconds = 0;
+
+                for(var meetingIndex in meetings) {
+                    var meeting = meetings[meetingIndex];
+                    milliseconds += getMeetingDayDuration(meeting.datetime, meeting.datetimeEnd, dateBegin, dateEnd);
+                }
+
+                return milliseconds / 1000 / 3600;
+            };
+
+            for(var dayOffset = 0; dayOffset < 7; dayOffset) {
+                var lastWeekDate = new Date(lastWeekBegin);
+                lastWeekDate.setDate(lastWeekDate.getDate() + dayOffset);
+
+                statistics.push({
+                    hours: getTotalMeetingHours(lastWeekDate),
+                    date: lastWeekDate
+                });
+                dayOffset++;
+            }
+
+            var lastWeekEnd = new Date(lastWeekBegin);
+            lastWeekEnd.setDate(lastWeekBegin.getDate() + 6);
+            lastWeekEnd.setHours(23, 59, 59, 999);
+
+            return {
+                statistics: statistics,
+                period: {
+                    begin: lastWeekBegin,
+                    end: lastWeekEnd
+                }
+            };
+        }
+    });
+
     this.route('today', {
         path: '/today',
         template: 'today',
