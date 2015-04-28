@@ -92,35 +92,21 @@ body {
 	list-style-type: none;
 }
 
-#error-block {
+#error-block,
+#error-block #empty-title,
+#error-block #empty-datetime,
+#error-block #empty-datetime-end,
+#error-block #incorrect-datetime-range
+{
 	display: none;
 }
 
-#error-block.error-detected {
-	display: block;
-}
-
-#error-block #empty-title {
-	display: none;
-}
-
-#error-block.empty-title #empty-title {
-	display: block;
-}
-
-#error-block #empty-datetime {
-	display: none;
-}
-
-#error-block.empty-datetime #empty-datetime {
-	display: block;
-}
-
-#error-block #incorrect-datetime-range {
-	display: none;
-}
-
-#error-block.incorrect-datetime-range #incorrect-datetime-range {
+#error-block.error-detected,
+#error-block.empty-title #empty-title,
+#error-block.empty-datetime #empty-datetime,
+#error-block.empty-datetime #empty-datetime-end,
+#error-block.incorrect-datetime-range #incorrect-datetime-range
+{
 	display: block;
 }
 

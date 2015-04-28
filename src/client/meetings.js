@@ -8,7 +8,7 @@ if (Meteor.isClient) {
             var datetimeEnd = $('#meeting-datetime-end-picker').data("DateTimePicker").date();
 
             $('#error-block').removeClass('error-detected empty-title empty-datetime');
-            if((title.length > 0) && datetime && (!datetimeEnd || (datetimeEnd.toDate() >= datetime.toDate()) )) {
+            if( (title.length > 0) && datetime && datetimeEnd && (datetimeEnd.toDate() >= datetime.toDate()) ) {
                 Meteor.call("saveMeeting", {
                     _id: event.target['meeting-id'].value,
                     attendants: event.target['meeting-attendants'].value,
@@ -25,7 +25,9 @@ if (Meteor.isClient) {
                 $('#error-block').addClass('error-detected');
                 if(title.length === 0) $('#error-block').addClass('empty-title');
                 if(!datetime) $('#error-block').addClass('empty-datetime');
-                if(datetimeEnd.toDate() < datetime.toDate()) $('#error-block').addClass('incorrect-datetime-range');
+                if(!datetimeEnd) $('#error-block').addClass('empty-datetime-end');
+                if(datetime && datetimeEnd && (datetimeEnd.toDate() < datetime.toDate()) )
+                    $('#error-block').addClass('incorrect-datetime-range');
             }
 
             return false;
