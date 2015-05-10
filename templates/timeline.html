@@ -1,5 +1,6 @@
 <template name="timeline">
-    <p>Here is your meeting notes timeline</p>
+    <div class="container">
+    <h1>Timeline</h1>
     {{#if upcoming.length}}
         <h3>Upcoming</h3>
         {{> list meetings=upcoming}}
@@ -16,4 +17,5 @@
         <h3>Last Week and Older</h3>
         {{> list meetings=older}}
     {{/if}}
+    </div>
 </template>
