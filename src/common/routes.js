@@ -1,7 +1,12 @@
 Router.map(function () {
-    this.route('main', {
+    this.route('welcome', {
         path: '/',
-        template: 'main',
+        template: 'welcome'
+    });
+
+    this.route('add', {
+        path: '/add',
+        template: 'form',
         data: function () {
             var datetimeEnd = new Date();
             datetimeEnd.setMinutes(datetimeEnd.getMinutes() + 30);
@@ -164,3 +169,11 @@ Router.map(function () {
         }
     });
 });
+
+Router.onBeforeAction(function() {
+    if (!Meteor.user()) {
+        this.render('welcome');
+    } else {
+        this.next();
+    }
+}, {except: ['welcome']});

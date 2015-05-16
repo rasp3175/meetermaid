@@ -1,6 +1,7 @@
 <template name="timeline">
     <div class="container">
     <h1>Timeline</h1>
+    {{> listHeader}}
     {{#if upcoming.length}}
         <h3>Upcoming</h3>
         {{> list meetings=upcoming}}
