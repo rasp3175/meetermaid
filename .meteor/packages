@@ -13,3 +13,5 @@ dandv:jquery-rateit
 iron:router
 zimme:iron-router-active
 ian:accounts-ui-bootstrap-3
+accounts-google
+service-configuration

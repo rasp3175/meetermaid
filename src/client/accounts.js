@@ -1,0 +1,9 @@
+if (Meteor.isClient) {
+    Accounts.ui.config({
+        passwordSignupFields: "USERNAME_AND_EMAIL"
+    });
+
+    Accounts.onLogin(function() {
+        Router.go('timeline');
+    });
+}
