@@ -2,7 +2,22 @@
     <div class="row">
         <div class="col-xs-8 col-sm-8 col-lg-8 col-md-8">Here is your meeting notes timeline</div>
         <div class="col-xs-4 col-sm-4 col-lg-4 col-md-4 text-right">
-            <a href="/add" class="btn btn-primary" role="button">Add</a>
+            <a id="add-meeting" class="btn btn-primary" role="button" data-toggle="modal" data-target="#save-meeting-dialog">Add</a>
+        </div>
+    </div>
+
+    <div id="save-meeting-dialog" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h1 class="modal-title" id="add-meeting-title">Add a New Meeting</h1>
+                    <h1 class="modal-title" id="edit-meeting-title">Edit the Meeting</h1>
+                </div>
+                <div class="modal-body">
+                    {{> form }}
+                </div>
+            </div>
         </div>
     </div>
 </template>

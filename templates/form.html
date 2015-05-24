@@ -1,12 +1,6 @@
 <template name="form">
 	<div class="container">
-	{{#if meeting._id}}
-        <h1>Edit the meeting</h1>
-	{{else}}
-        <h1>Add a meeting</h1>
-	{{/if}}
 	<p>Time to pause and reflect on your meeting!</p>
-
 
     <div class="alert alert-danger" id="error-block">
         <button class="close" type="button" data-dismiss="alert">&times;</button>
@@ -22,13 +16,10 @@
 
 	<form>
 		<div>
-			<input type="hidden" id="meeting-id" value="{{meeting._id}}" />
+			<input type="hidden" id="meeting-id" />
 			<div class="meeting-title-block">
-			{{#if meeting.title}}
-				<input type="text" maxlength="60" class="form-control" name="meeting-title" placeholder="Meeting Title" value="{{meeting.title}}" />
-			{{else}}
-                <input type="text" maxlength="60" class="form-control" name="meeting-title" placeholder="Meeting Title" value="My Meeting" />
-			{{/if}}
+                <input type="hidden" id="default-meeting-title" value="My Meeting" />
+                <input type="text" maxlength="60" class="form-control" id="meeting-title" name="meeting-title" placeholder="Meeting Title" value="My Meeting" />
 			</div>
 
             <div class="meeting-datetime-block">
@@ -53,18 +44,17 @@
                 <label for="meeting-description" class="control-label">Meeting Notes</label>
             </div>
             <div class="meeting-description-block">
-                <textarea name="meeting-description" id="meeting-description" maxlength="255" placeholder="Type here" class="form-control">{{meeting.description}}</textarea>
+                <textarea name="meeting-description" id="meeting-description" maxlength="255" placeholder="Type here" class="form-control"></textarea>
             </div>
 
             <div class="meeting-attendants-title">
                 <label for="meeting-attendants" class="control-label">Attendants</label>
             </div>
             <div class="meeting-attendants-block">
-                <textarea name="meeting-attendants" id="meeting-attendants" placeholder="Separate email addresses by comma" class="form-control">{{meeting.attendants}}</textarea>
+                <textarea name="meeting-attendants" id="meeting-attendants" placeholder="Separate email addresses by comma" class="form-control"></textarea>
             </div>
 
 			<div class="meeting-privacy-block">
-				{{#if meeting.private}}
 				<div class="btn-group" role="group">
 					<button class="btn btn-primary btn-sm meeting-private-title" id="meeting-private-enable">
 						Private
@@ -73,27 +63,20 @@
 						Public
 					</button>
 				</div>
-				<input type="hidden" id="meeting-private" value="{{meeting.private}}" /> {{else}}
-				<button class="btn btn-default btn-sm meeting-private-title" id="meeting-private-enable">
-					Private
-				</button>
-				<button class="btn btn-primary btn-sm meeting-private-title" id="meeting-private-disable">
-					Public
-				</button>
-				<input type="hidden" id="meeting-private" value="{{meeting.private}}" /> {{/if}}
+				<input type="hidden" id="meeting-private" value="" />
 			</div>
+
 			<div class="meeting-priority-block">
-				<div id="meeting-priority" class="rateit" data-rateit-value="{{meeting.priority}}"></div>
+				<div id="meeting-priority" class="rateit" data-rateit-value=""></div>
 			</div>
+
 			<div class="meeting-submit-block">
 				<input type="submit" value="Save" class="btn btn-primary btn-sm" />
 			</div>
 
-			{{#if meeting._id}}
 			<div class="meeting-submit-block">
-				<input type="button" value="Delete" class="btn btn-danger btn-sm" id="delete-meeting" />
+				<input type="button" value="Delete" class="btn btn-danger btn-sm" id="delete-meeting" data-dismiss="modal" data-target="#save-meeting-dialog" />
 			</div>
-			{{/if}}
 			<div style="clear:both"></div>
 		</div>
 	</form>

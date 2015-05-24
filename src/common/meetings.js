@@ -24,12 +24,14 @@ Meteor.methods({
         Meetings.insert(meeting);
     },
     updateMeeting: function (meeting) {
-        var foundMeeting = Meetings.findOne(meeting._id);
+        var id = meeting._id;
+        delete meeting._id;
+        var foundMeeting = Meetings.findOne(id);
 
         if (foundMeeting.owner !== Meteor.userId()) {
             throw new Meteor.Error("not-authorized");
         }
 
-        Meetings.update(meeting._id, {$set: meeting});
+        Meetings.update(id, {$set: meeting});
     }
 });

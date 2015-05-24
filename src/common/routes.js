@@ -4,38 +4,6 @@ Router.map(function () {
         template: 'welcome'
     });
 
-    this.route('add', {
-        path: '/add',
-        template: 'form',
-        data: function () {
-            var datetimeEnd = new Date();
-            datetimeEnd.setMinutes(datetimeEnd.getMinutes() + 30);
-
-            return {
-                meeting: {
-                    _id: null,
-                    attendants: '',
-                    datetime: new Date(),
-                    datetimeEnd: datetimeEnd,
-                    description: '',
-                    private: 1,
-                    priority: 0,
-                    title: ''
-                }
-            };
-        }
-    });
-
-    this.route('edit-meeting', {
-        path: '/edit-meeting/:_id',
-        template: 'form',
-        data: function () {
-            return {
-                meeting: Meetings.findOne({_id: this.params._id})
-            };
-        }
-    });
-
     var getMeetings = function (criteria) {
         var currentUserMeetingsCriteria = $.extend(true, {}, criteria);
         currentUserMeetingsCriteria.owner = Meteor.userId();

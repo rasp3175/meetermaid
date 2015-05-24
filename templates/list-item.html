@@ -1,7 +1,9 @@
 <template name="listItem">
     <div class="meeting-main-info">
-        <div class="meeting-info-title"><a href="/edit-meeting/{{_id}}">{{title}}</a></div>
-        <div class="rateit" data-rateit-value="{{priority}}" data-rateit-ispreset="true" data-rateit-readonly="true">
+        <div class="meeting-info-title">
+            <a class="edit-meeting" value="{{_id}}" data-toggle="modal" data-target="#save-meeting-dialog">{{title}}</a>
+        </div>
+        <div class="rateit" id="rateit-{{_id}}" data-rateit-value="{{priority}}" data-rateit-ispreset="true" data-rateit-readonly="true">
         </div>
         <div class="meeting-info-datetime small text-muted">{{formatDate datetime 'dddd, LL'}}</div>
     </div>
@@ -16,10 +18,4 @@
       {{/if}}
     </div>
     <div style="clear:both"></div>
-
-    <script type="text/javascript">
-        $(function () {
-            $('.rateit').rateit();
-        });
-    </script>
 </template>

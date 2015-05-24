@@ -1,6 +1,12 @@
 if (Meteor.isClient) {
     Meteor.subscribe("meetings");
 
+    var selectPrivacy = function(value, enableElement, disableElement) {
+        $('#meeting-private').val(value);
+        disableElement.removeClass('btn-primary').addClass('btn-default');
+        enableElement.removeClass('btn-default').addClass('btn-primary');
+    };
+
     Template.form.events({
         "submit form": function (event) {
             var title = event.target['meeting-title'].value.trim();
@@ -19,8 +25,6 @@ if (Meteor.isClient) {
                     priority: $('#meeting-priority').rateit('value'),
                     title: title
                 });
-
-                Router.go('/timeline');
             } else {
                 $('#error-block').addClass('error-detected');
                 if(title.length === 0) $('#error-block').addClass('empty-title');
@@ -30,6 +34,8 @@ if (Meteor.isClient) {
                     $('#error-block').addClass('incorrect-datetime-range');
             }
 
+            $('#save-meeting-dialog').modal('hide');
+            $('#rateit-' + event.target['meeting-id'].value).rateit('value', $('#meeting-priority').rateit('value'));
             return false;
         },
         'click #error-block button.close': function() {
@@ -38,17 +44,10 @@ if (Meteor.isClient) {
         },
         'click #delete-meeting': function() {
             Meteor.call("deleteMeeting", $('#meeting-id').val());
-            Router.go('/timeline');
         },
         'click .meeting-private-title': function(event) {
             var currentValue = $('#meeting-private').val();
             var targetId = event.currentTarget.id;
-
-            var selectPrivacy = function(value, enableElement, disableElement) {
-                $('#meeting-private').val(value);
-                disableElement.removeClass('btn-primary').addClass('btn-default');
-                enableElement.removeClass('btn-default').addClass('btn-primary');
-            };
 
             if((currentValue === '1') && (targetId !== 'meeting-private-enable'))
                 selectPrivacy('0', $('#meeting-private-disable'), $('#meeting-private-enable'));
@@ -60,8 +59,69 @@ if (Meteor.isClient) {
     });
 
     Template.form.rendered = function() {
-        $('#meeting-datetime-picker').datetimepicker().data('DateTimePicker').date(this.data.meeting.datetime);
-        $('#meeting-datetime-end-picker').datetimepicker().data('DateTimePicker').date(this.data.meeting.datetimeEnd);
+        $('.rateit').rateit();
+    };
+
+    var openMeetingFormDialog = function(event) {
+        var getMeeting = function(_id) {
+            if(_id) return Meetings.findOne({_id: _id});
+            var datetimeEnd = new Date();
+            datetimeEnd.setMinutes(datetimeEnd.getMinutes() + 30);
+
+            return {
+                _id: null,
+                attendants: '',
+                datetime: new Date(),//
+                datetimeEnd: datetimeEnd,//
+                description: '',
+                private: 1,
+                priority: 0,//
+                title: ''
+            };
+        };
+
+        var fillForm = function(meeting) {
+            $('#meeting-id').val(meeting._id);
+            $('#meeting-attendants').val(meeting.attendants);
+            $('#meeting-description').val(meeting.description);
+            $('#meeting-title').val(meeting.title);
+
+            if(!$('#meeting-title').val())
+                $('#meeting-title').val($('#default-meeting-title').val());
+
+            if(meeting.private)
+                selectPrivacy('0', $('#meeting-private-disable'), $('#meeting-private-enable'));
+            else
+                selectPrivacy('1', $('#meeting-private-enable'), $('#meeting-private-disable'));
+
+            $('#meeting-datetime-picker').datetimepicker().data('DateTimePicker').date(meeting.datetime);
+            $('#meeting-datetime-end-picker').datetimepicker().data('DateTimePicker').date(meeting.datetimeEnd);
+
+            $('#meeting-priority').rateit('value', meeting.priority);
+
+            if(meeting._id) {
+                $('#add-meeting-title').hide();
+                $('#edit-meeting-title').show();
+                $('#delete-meeting').show();
+            } else {
+                $('#add-meeting-title').show();
+                $('#edit-meeting-title').hide();
+                $('#delete-meeting').hide();
+            }
+        };
+
+        fillForm( getMeeting($(event.target).attr('value')) );
+    };
+
+    Template.listHeader.events({
+        'click #add-meeting': openMeetingFormDialog
+    });
+
+    Template.listItem.events({
+        'click .edit-meeting': openMeetingFormDialog
+    });
+
+    Template.listItem.rendered = function() {
         $('.rateit').rateit();
     };
 
