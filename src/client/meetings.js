@@ -125,7 +125,7 @@ if (Meteor.isClient) {
         $('.rateit').rateit();
     };
 
-    Template.weeklyReport.rendered = function() {
+    Template.report.rendered = function() {
         var chartData = [];
 
         for(var statisticsIndex in this.data.statistics) {
@@ -137,7 +137,7 @@ if (Meteor.isClient) {
         }
 
         new Morris.Bar({
-            element: 'weekly-report-chart',
+            element: 'report-chart',
             data: chartData,
             xkey: 'date',
             ykeys: ['hours'],

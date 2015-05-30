@@ -53,9 +53,9 @@ Router.map(function () {
         }
     });
 
-    this.route('weekly-report', {
-        path: '/weekly-report',
-        template: 'weeklyReport',
+    this.route('report', {
+        path: '/report',
+        template: 'report',
         data: function() {
             var statistics = [];
 
@@ -103,7 +103,7 @@ Router.map(function () {
             firstDay.setHours(0, 0, 0, 0);
             var date = new Date(firstDay);
 
-            while(date.getTime() < today.getTime()) {
+            while(date.getTime() <= today.getTime()) {
                 statistics.push({
                     hours: getTotalMeetingHours(date),
                     date: new Date(date)
