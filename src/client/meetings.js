@@ -131,12 +131,10 @@ if (Meteor.isClient) {
         for(var statisticsIndex in this.data.statistics) {
             var item = this.data.statistics[statisticsIndex];
             chartData.push({
-                hours: item.hours,
-                date: moment(item.date).format('YYYY-MM-DD')
+                hours: item.hours.toFixed(2),
+                date: moment(item.date).format('MMM DD')
             });
         }
-
-        console.log(chartData);
 
         new Morris.Bar({
             element: 'weekly-report-chart',

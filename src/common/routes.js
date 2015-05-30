@@ -57,10 +57,6 @@ Router.map(function () {
         path: '/weekly-report',
         template: 'weeklyReport',
         data: function() {
-            var now = new Date();
-            var lastWeekBegin = new Date( now.setDate(now.getDate() - now.getDay() + (now.getDay() == 0 ? -6 : 1)) );
-            lastWeekBegin.setDate(lastWeekBegin.getDate() - 7);
-
             var statistics = [];
 
             var getOwnMeetings = function(dateBegin, dateEnd) {
@@ -98,26 +94,28 @@ Router.map(function () {
                 return milliseconds / 1000 / 3600;
             };
 
-            for(var dayOffset = 0; dayOffset < 7; dayOffset) {
-                var lastWeekDate = new Date(lastWeekBegin);
-                lastWeekDate.setDate(lastWeekDate.getDate() + dayOffset);
+            var today = new Date();
+            today.setHours(0, 0, 0, 0);
 
+            var firstMeeting = Meetings.findOne({owner: Meteor.userId()}, {sort: {datetime: 1}});
+            var firstDay = firstMeeting.datetime ? firstMeeting.datetime : today;
+
+            firstDay.setHours(0, 0, 0, 0);
+            var date = new Date(firstDay);
+
+            while(date.getTime() < today.getTime()) {
                 statistics.push({
-                    hours: getTotalMeetingHours(lastWeekDate),
-                    date: lastWeekDate
+                    hours: getTotalMeetingHours(date),
+                    date: new Date(date)
                 });
-                dayOffset++;
+                date.setDate(date.getDate() + 1);
             }
-
-            var lastWeekEnd = new Date(lastWeekBegin);
-            lastWeekEnd.setDate(lastWeekBegin.getDate() + 6);
-            lastWeekEnd.setHours(23, 59, 59, 999);
 
             return {
                 statistics: statistics,
                 period: {
-                    begin: lastWeekBegin,
-                    end: lastWeekEnd
+                    begin: firstDay,
+                    end: today
                 }
             };
         }
