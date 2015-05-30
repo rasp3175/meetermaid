@@ -125,12 +125,25 @@ if (Meteor.isClient) {
         $('.rateit').rateit();
     };
 
-    Template.weeklyReport.helpers({
-        getLoadLevel: function(hours) {
-            return hours <= 3 ? 'bg-success' : (hours >= 6 ? 'bg-danger' : 'bg-warning');
-        },
-        getBarWidth: function(hours) {
-            return hours / 24 * 40;
+    Template.weeklyReport.rendered = function() {
+        var chartData = [];
+
+        for(var statisticsIndex in this.data.statistics) {
+            var item = this.data.statistics[statisticsIndex];
+            chartData.push({
+                hours: item.hours,
+                date: moment(item.date).format('YYYY-MM-DD')
+            });
         }
-    });
+
+        console.log(chartData);
+
+        new Morris.Bar({
+            element: 'weekly-report-chart',
+            data: chartData,
+            xkey: 'date',
+            ykeys: ['hours'],
+            labels: ['Hours']
+        });
+    };
 }
